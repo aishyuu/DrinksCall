@@ -54,9 +54,9 @@ namespace DrinksCall
         {
             AnsiConsole.Write(new Rows(
                 new Markup($"[green]Name[/]: {drink.AllInfo[0].Name}"),
-                new Text($"[green]Category[/]: {drink.AllInfo[0].Category}"),
-                new Text($"[red]{drink.AllInfo[0].Alcoholic}[/]"),
-                new Text($"[green]Glass[/]: {drink.AllInfo[0].Glass}")
+                new Markup($"[green]Category[/]: {drink.AllInfo[0].Category}"),
+                new Markup($"[red]{drink.AllInfo[0].Alcoholic}[/]"),
+                new Markup($"[green]Glass[/]: {drink.AllInfo[0].Glass}")
                 ));
         }
     }
