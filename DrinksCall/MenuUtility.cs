@@ -9,15 +9,18 @@ namespace DrinksCall
 {
     internal class MenuUtility
     {
-        public static string CategoryPrompt(List<Category> categories, int length)
+        public static string CategoryPrompt(Category categories)
         {
-            string[] list = new string[length];
+            string[] list = new string[categories.list.Length];
             int count = 0;
 
-            foreach (Category category in categories)
+            foreach(StrCategory category in categories.list)
             {
+                list[count] = category.Name;
                 count++;
             }
+
+            
 
             var chosenCategory = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
@@ -25,6 +28,36 @@ namespace DrinksCall
                     .AddChoices(list));
 
             return chosenCategory;
+        }
+
+        public static string DrinkPrompt(Drinks drinks)
+        {
+            string[] list = new string[drinks.list.Length];
+            int count = 0;
+
+            foreach(DrinkOverview drink in drinks.list)
+            {
+                list[count] = drink.Name;
+                count++;
+            }
+
+            var chosenDrink = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Choose a drinks [blue]category[/]")
+                    .AddChoices(list));
+
+            var foundItem = drinks.list.SingleOrDefault(item => item.Name == chosenDrink);
+            return foundItem.Id;
+        }
+
+        public static void DisplayDrinkInfo(DrinksInfo drink)
+        {
+            AnsiConsole.Write(new Rows(
+                new Markup($"[green]Name[/]: {drink.AllInfo[0].Name}"),
+                new Text($"[green]Category[/]: {drink.AllInfo[0].Category}"),
+                new Text($"[red]{drink.AllInfo[0].Alcoholic}[/]"),
+                new Text($"[green]Glass[/]: {drink.AllInfo[0].Glass}")
+                ));
         }
     }
 }
